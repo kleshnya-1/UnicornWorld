@@ -1,0 +1,53 @@
+version: "3.3"
+
+services:
+  unicorn_mongo_db:
+    image: mongo:5.0.6
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: unicorn
+      MONGO_INITDB_ROOT_PASSWORD: 1
+    restart: always
+    ports:
+      - "27019:27017"
+
+  unicorn_pg_db:
+    image: postgres:13.3
+    volumes:
+      - ./volumes/pg:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=unicorn
+      - POSTGRES_PASSWORD=1
+    restart: always
+    ports:
+      - "5439:5432"
+
+  unicorn_oracle_db:
+    image: oracleinanutshell/oracle-xe-11g:latest
+    restart: always
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+
+
+#  pg_libraryApp_libraryDb:
+#    image: postgres:13.3
+#    volumes:
+#      - ./volumes/libraryDb:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_DB=libraryDb
+#      - POSTGRES_PASSWORD=1
+#    restart: always
+#    ports:
+#      - "5432:5432"
+#
+#  pg_libraryApp_archiveDb:
+#    image: postgres:13.3
+#    volumes:
+#      - ./volumes/archiveDb:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_DB=archiveDb
+#      - POSTGRES_PASSWORD=1
+#    restart: always
+#    ports:
+#      - "5439:5432"
+
